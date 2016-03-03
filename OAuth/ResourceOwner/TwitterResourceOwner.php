@@ -42,19 +42,27 @@ class TwitterResourceOwner extends GenericOAuth1ResourceOwner
             'request_token_url' => 'https://api.twitter.com/oauth/request_token',
             'access_token_url'  => 'https://api.twitter.com/oauth/access_token',
             'infos_url'         => 'https://api.twitter.com/1.1/account/verify_credentials.json',
+            'x_auth_access_type' => 'write',
+            'include_entities' => null,
+            'skip_status' => null,
+            'include_email' => null,
         ));
 
         // Symfony <2.6 BC
         if (method_exists($resolver, 'setDefined')) {
-            $resolver->setDefined('x_auth_access_type');
-            // @link https://dev.twitter.com/oauth/reference/post/oauth/request_token
-            $resolver->setAllowedValues('x_auth_access_type', array('read', 'write'));
+            $resolver
+                ->setAllowedValues('x_auth_access_type', array('read', 'write'))
+                // @link https://dev.twitter.com/oauth/reference/post/oauth/request_token
+                ->setAllowedValues('include_entities', array(true, false, null))
+                ->setAllowedValues('skip_status', array(true, false, null))
+                ->setAllowedValues('include_email', array(true, false, null))
+            ;
         } else {
-            $resolver->setOptional(array(
-                'x_auth_access_type',
-            ));
             $resolver->setAllowedValues(array(
                 'x_auth_access_type' => array('read', 'write'),
+                'include_entities' => array(true, false, null),
+                'skip_status' => array(true, false, null),
+                'include_email' => array(true, false, null),
             ));
         }
     }
