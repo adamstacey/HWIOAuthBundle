@@ -41,11 +41,11 @@ class TwitterResourceOwner extends GenericOAuth1ResourceOwner
             'authorization_url' => 'https://api.twitter.com/oauth/authenticate',
             'request_token_url' => 'https://api.twitter.com/oauth/request_token',
             'access_token_url'  => 'https://api.twitter.com/oauth/access_token',
-            'infos_url'         => 'https://api.twitter.com/1.1/account/verify_credentials.json',
+            'infos_url'         => 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
             'x_auth_access_type' => 'write',
             'include_entities' => null,
             'skip_status' => null,
-            'include_email' => null,
+            'include_email' => true,
         ));
 
         // Symfony <2.6 BC
